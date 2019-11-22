@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "2.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def DEV_MODE = true
+
+dependencies {
+    if(DEV_MODE)
+        implementation fileTree(dir: 'dev/libs', includes: ['*.jar', '*.aar'])
+    else {
+        implementation 'com.facebook.react:react-native:+'
+        implementation ':UnityExport'
+    }
+}
+
+repositories {
+    google()
+}
